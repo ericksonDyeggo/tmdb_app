@@ -35,3 +35,6 @@ gradlew.bat
 build/
 captures/
 .externalNativeBuild
+
+# User files 
+app/src/main/res/values/api_res.xml
