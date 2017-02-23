@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.example.themoviedb.themoviedatabaseapp.R;
+import com.example.themoviedb.themoviedatabaseapp.model.Movie;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.EBean;
@@ -25,21 +27,25 @@ public class ImageAdapter extends BaseAdapter {
     @RootContext
     Context mContext;
 
-    List<String> mImages;
+    List<Movie> movies;
 
-    @Override
-    public int getCount() {
-        return 0;
+    public ImageAdapter() {
+        movies = new ArrayList<>();
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public int getCount() {
+        return movies.size();
+    }
+
+    @Override
+    public Movie getItem(int position) {
+        return movies.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return movies.get(position).getId();
     }
 
     @Override
@@ -50,6 +56,9 @@ public class ImageAdapter extends BaseAdapter {
         if (convertView == null) {
 //            if not, create one
             imageView = new ImageView(mContext);
+            imageView.setLayoutParams(new GridView.LayoutParams(153, 227));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
         } else {
 //            use de recycled one
             imageView = (ImageView) convertView;
@@ -57,7 +66,7 @@ public class ImageAdapter extends BaseAdapter {
 
 //        Load images using Picasso
         Picasso.with(mContext)
-                .load(mImages.get(position))
+                .load(getItem(position).getPosterPath())
                 .placeholder(R.mipmap.timthumb)
                 .error(R.mipmap.timthumb)
                 .noFade()
@@ -68,17 +77,14 @@ public class ImageAdapter extends BaseAdapter {
         return imageView;
     }
 
-    public void addImage(String image) {
-        if (mImages == null)
-            mImages = new ArrayList<>();
-
-        mImages.add(image);
+    public void addMovie(Movie movie) {
+        movies.add(movie);
     }
 
-    public void addImage(List<String> images) {
-        if (mImages == null)
-            mImages = images;
+    public void addMovie(List<Movie> movies) {
+        if (this.movies == null)
+            this.movies = movies;
         else
-            mImages.addAll(images);
+            this.movies.addAll(movies);
     }
 }
