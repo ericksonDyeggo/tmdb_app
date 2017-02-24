@@ -2,6 +2,7 @@ package com.example.themoviedb.themoviedatabaseapp;
 
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.GridView;
 
 import com.example.themoviedb.themoviedatabaseapp.custom.adapter.ImageAdapter;
@@ -42,12 +43,16 @@ public class MainActivity extends AppCompatActivity {
         tmdbMovie = service.getTMDBMovie();
         page = 1;
 
-        startProgress();
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
         loadMore();
+
+        moviesGridView.setAdapter(adapter);
 
         moviesGridView.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public boolean onLoadMore(int page, int totalItemsCount) {
+                Log.d("Pagina", String.valueOf(page));
                 loadMore();
                 return true;
             }
@@ -55,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadMore() {
+        startProgress();
         loadMovies();
-        adapter.notifyDataSetChanged();
     }
 
     @UiThread
@@ -67,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
     @UiThread
     void stopProgress() {
+        adapter.notifyDataSetChanged();
         progressDialog.dismiss();
-        moviesGridView.setAdapter(adapter);
     }
 
     @Background
