@@ -66,7 +66,7 @@ public class ImageAdapter extends BaseAdapter {
 
 //        Load images using Picasso
         Picasso.with(mContext)
-                .load(getItem(position).getPosterPath())
+                .load(getItem(position).getPosterPath(Movie.W92))
                 .placeholder(R.mipmap.timthumb)
                 .error(R.mipmap.timthumb)
                 .noFade()

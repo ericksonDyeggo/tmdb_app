@@ -2,26 +2,38 @@ package com.example.themoviedb.themoviedatabaseapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by erickson on 12/02/17.
  */
 
-public class Movie {
+public class Movie implements Serializable {
 
     private final static String IMG_URL = "https://image.tmdb.org/t/p/%s%s";
+
+    public final static int W92 = 1;
+    public final static int W154 = 2;
+    public final static int W185 = 3;
+    public final static int W342 = 4;
+    public final static int W500 = 5;
+    public final static int W780 = 6;
+    public final static int ORIGINAL = 0;
+    private final String[] sizes = {"original", "w92", "w154", "w185", "w342", "w500", "w780"};
 
     private Long id;
     @SerializedName("original_title")
     private String originalTitle;
+    private String title;
     @SerializedName("poster_path")
     private String posterPath;
-    private String overview;
+    @SerializedName("overview")
+    private String synopsis;
     @SerializedName("release_date")
     private Date releaseDate;
     @SerializedName("vote_average")
-    private Double voteAverage;
+    private float voteAverage;
 
     public Long getId() {
         return id;
@@ -39,8 +51,16 @@ public class Movie {
         this.originalTitle = originalTitle;
     }
 
-    public String getPosterPath() {
-        String posterURL = String.format(IMG_URL, "w500", posterPath);
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPosterPath(int size) {
+        String posterURL = String.format(IMG_URL, sizes[size], posterPath);
         return posterURL;
     }
 
@@ -48,12 +68,12 @@ public class Movie {
         this.posterPath = posterPath;
     }
 
-    public String getOverview() {
-        return overview;
+    public String getSynopsis() {
+        return synopsis;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
     }
 
     public Date getReleaseDate() {
@@ -64,11 +84,11 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public Double getVoteAverage() {
+    public float getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(Double voteAverage) {
+    public void setVoteAverage(float voteAverage) {
         this.voteAverage = voteAverage;
     }
 }

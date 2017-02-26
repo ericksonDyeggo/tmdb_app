@@ -1,8 +1,7 @@
 package com.example.themoviedb.themoviedatabaseapp.rest_client;
 
-import android.util.Log;
-
 import java.io.IOException;
+import java.util.Locale;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -47,14 +46,11 @@ public class TMDBService {
         public Response intercept(Chain chain) throws IOException {
             Request original = chain.request();
 
-            Log.d("Movie", original.url().toString());
-
             HttpUrl newUrl = original.url()
                     .newBuilder()
                     .addQueryParameter("api_key", API_KEY) // Add the api_key to the request
+                    .addQueryParameter("language", Locale.getDefault().getLanguage())
                     .build();
-
-            Log.d("Movie", newUrl.toString());
 
             Request request = original.newBuilder().url(newUrl).build();
             return chain.proceed(request);
