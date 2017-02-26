@@ -2,22 +2,25 @@ package com.example.themoviedb.themoviedatabaseapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by erickson on 12/02/17.
  */
 
-public class Movie {
+public class Movie implements Serializable {
 
     private final static String IMG_URL = "https://image.tmdb.org/t/p/%s%s";
 
     private Long id;
     @SerializedName("original_title")
     private String originalTitle;
+    private String title;
     @SerializedName("poster_path")
     private String posterPath;
-    private String overview;
+    @SerializedName("overview")
+    private String synopsis;
     @SerializedName("release_date")
     private Date releaseDate;
     @SerializedName("vote_average")
@@ -39,8 +42,16 @@ public class Movie {
         this.originalTitle = originalTitle;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getPosterPath() {
-        String posterURL = String.format(IMG_URL, "w500", posterPath);
+        String posterURL = String.format(IMG_URL, "w780", posterPath);
         return posterURL;
     }
 
@@ -48,12 +59,12 @@ public class Movie {
         this.posterPath = posterPath;
     }
 
-    public String getOverview() {
-        return overview;
+    public String getSynopsis() {
+        return synopsis;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
     }
 
     public Date getReleaseDate() {

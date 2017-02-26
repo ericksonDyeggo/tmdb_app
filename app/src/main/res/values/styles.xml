@@ -8,4 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ActivityTitle" parent="ActivityTextBase">
+        <item name="android:textSize">@dimen/activity_title</item>
+    </style>
+
+    <style name="ActivitySubTitle" parent="ActivityTextBase">
+        <item name="android:layout_marginTop">@dimen/activity_text</item>
+        <item name="android:textSize">@dimen/activity_subtitle</item>
+    </style>
+
+    <style name="ActivityText" parent="ActivityTextBase">
+        <item name="android:textSize">@dimen/activity_text</item>
+    </style>
+
+    <style name="ActivityTextBase">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/activityTextColor</item>
+    </style>
+
 </resources>
