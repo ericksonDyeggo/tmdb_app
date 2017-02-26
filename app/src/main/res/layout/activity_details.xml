@@ -13,9 +13,9 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/movieOriginalTitleTextView"
@@ -29,8 +29,25 @@
                 style="@style/ActivityText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:text="MovieTitle" />
+
+            <TextView
+                android:id="@+id/movieReleaseDateTextView"
+                style="@style/ActivityText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:text="ReleaseDate" />
+
+            <RatingBar
+                android:id="@+id/voteAverageRatingRatingBar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:isIndicator="true"
+                android:numStars="5" />
 
             <ImageView
                 android:id="@+id/moviePosterImageView"
@@ -50,20 +67,7 @@
                 style="@style/ActivityText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/movie_synopsis" />
-
-            <TextView
-                style="@style/ActivitySubTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/release_date" />
-
-            <TextView
-                android:id="@+id/movieReleaseDateTextView"
-                style="@style/ActivityText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ReleaseDate" />
+                android:text="MovieSynopsis" />
 
         </LinearLayout>
 

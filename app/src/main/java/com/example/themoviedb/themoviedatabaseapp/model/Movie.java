@@ -13,6 +13,15 @@ public class Movie implements Serializable {
 
     private final static String IMG_URL = "https://image.tmdb.org/t/p/%s%s";
 
+    public final static int W92 = 1;
+    public final static int W154 = 2;
+    public final static int W185 = 3;
+    public final static int W342 = 4;
+    public final static int W500 = 5;
+    public final static int W780 = 6;
+    public final static int ORIGINAL = 0;
+    private final String[] sizes = {"original", "w92", "w154", "w185", "w342", "w500", "w780"};
+
     private Long id;
     @SerializedName("original_title")
     private String originalTitle;
@@ -24,7 +33,7 @@ public class Movie implements Serializable {
     @SerializedName("release_date")
     private Date releaseDate;
     @SerializedName("vote_average")
-    private Double voteAverage;
+    private float voteAverage;
 
     public Long getId() {
         return id;
@@ -50,8 +59,8 @@ public class Movie implements Serializable {
         this.title = title;
     }
 
-    public String getPosterPath() {
-        String posterURL = String.format(IMG_URL, "w780", posterPath);
+    public String getPosterPath(int size) {
+        String posterURL = String.format(IMG_URL, sizes[size], posterPath);
         return posterURL;
     }
 
@@ -75,11 +84,11 @@ public class Movie implements Serializable {
         this.releaseDate = releaseDate;
     }
 
-    public Double getVoteAverage() {
+    public float getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(Double voteAverage) {
+    public void setVoteAverage(float voteAverage) {
         this.voteAverage = voteAverage;
     }
 }

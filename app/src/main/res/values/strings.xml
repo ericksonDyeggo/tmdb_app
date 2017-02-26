@@ -3,5 +3,5 @@
     <string name="loading">Carregando</string>
     <string name="movie_synopsis">Sinopse do Filme:</string>
     <string name="user_review">Avaliação do Usuário:</string>
-    <string name="release_date">Data de Lançamento:</string>
+    <string name="no_overview">Sinopse não encontrada</string>
 </resources>
