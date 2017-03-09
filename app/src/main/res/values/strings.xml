@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">The Movie Database App</string>
+    <!--Configurations-->
+    <string name="pref_ordering_movies_key" translatable="false">ordering_movies</string>
+    <string name="pref_ordering_movies">Ordenação dos filmes</string>
+    <string name="pref_order_by_popularity_key" translatable="false">popular</string>
+    <string name="pref_order_by_popularity">Popularidade</string>
+    <string name="pref_order_by_top_rated_key" translatable="false">top_rated</string>
+    <string name="pref_order_by_top_rated">Avaliação do usuário</string>
+    <!--App-->
+    <string name="action_settings">Preferências</string>
     <string name="loading">Carregando</string>
     <string name="movie_synopsis">Sinopse do Filme:</string>
     <string name="user_review">Avaliação do Usuário:</string>

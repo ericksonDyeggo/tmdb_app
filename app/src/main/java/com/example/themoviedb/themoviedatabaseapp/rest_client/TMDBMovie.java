@@ -23,4 +23,10 @@ public interface TMDBMovie {
 
     @GET("movie/upcoming")
     Call<UpComingMovies> getUpcomingMovies(@Query("page")Integer page);
+
+    @GET("movie/popular")
+    Call<UpComingMovies> getPopular(@Query("page")Integer page);
+
+    @GET("movie/top_rated")
+    Call<UpComingMovies> getTopRated(@Query("page")Integer page);
 }

@@ -3,10 +3,7 @@ package com.example.themoviedb.themoviedatabaseapp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.example.themoviedb.themoviedatabaseapp.custom.adapter.ImageAdapter;
 import com.example.themoviedb.themoviedatabaseapp.custom.listener.EndlessScrollListener;
@@ -21,12 +18,15 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.NonConfigurationInstance;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import retrofit2.Call;
 
 @EActivity(R.layout.activity_main)
+@OptionsMenu(R.menu.main)
 public class MainActivity extends AppCompatActivity {
 
     @InstanceState
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     TMDBService service;
     TMDBMovie tmdbMovie;
     ProgressDialog progressDialog;
+    String prefUser;
 
     @ViewById
     GridView moviesGridView;
@@ -42,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
     @Bean
     ImageAdapter adapter;
 
-    @AfterViews // Initialize our components
+    @AfterViews
+        // Initialize our components
     void init() {
+        prefUser = Utility.getPreferedOrder(this);
+
         progressDialog = new ProgressDialog(this);
 
         service = new TMDBService(getString(R.string.api_key));
@@ -61,13 +65,14 @@ public class MainActivity extends AppCompatActivity {
         moviesGridView.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public boolean onLoadMore(int page, int totalItemsCount) {
-            loadMore();
-            return true;
+                loadMore();
+                return true;
             }
         });
     }
 
-    @ItemClick  // What to execute after normal click
+    @ItemClick
+        // What to execute after normal click
     void moviesGridViewItemClicked(int position) {
         Intent mIntent = new Intent(this, DetailsActivity_.class);
 
@@ -76,12 +81,18 @@ public class MainActivity extends AppCompatActivity {
         startActivity(mIntent);
     }
 
-    public void loadMore() {
+    @OptionsItem(R.id.action_settings)
+    void openSettings() {
+        Intent mIntent = new Intent(this, SettingsActivity_.class);
+        startActivity(mIntent);
+    }
+
+    private void loadMore() {
         startProgress();
         loadMovies();
     }
 
-    void startProgress() {
+    private void startProgress() {
         progressDialog.setMessage(getString(R.string.loading));
         progressDialog.show();
     }
@@ -94,13 +105,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Background
     void loadMovies() {
-        Call<UpComingMovies> call = tmdbMovie.getUpcomingMovies(page++);
+        Call<UpComingMovies> call;
+
+        if (prefUser.equals(getString(R.string.pref_order_by_popularity_key))) {
+            call = tmdbMovie.getPopular(page++);
+        } else if (prefUser.equals(getString(R.string.pref_order_by_top_rated_key))) {
+            call = tmdbMovie.getTopRated(page++);
+        } else {
+            call = tmdbMovie.getPopular(page++);
+        }
 
         try {
             adapter.addMovie(call.execute().body().getMovies());
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         stopProgress();
     }
 }
