@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_ordering_movies_values">
+        <item>@string/pref_ordering_movies_key</item>
+        <item>@string/pref_order_by_vote_average_key</item>
+    </string-array>
+    <string-array name="pref_ordering_movies_entries">
+        <item>@string/pref_ordering_movies</item>
+        <item>@string/pref_order_by_vote_average</item>
+    </string-array>
+</resources>

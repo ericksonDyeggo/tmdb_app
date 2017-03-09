@@ -1,9 +1,11 @@
 package com.example.themoviedb.themoviedatabaseapp;
 
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.themoviedb.themoviedatabaseapp.model.Movie;
 import com.squareup.picasso.Picasso;
@@ -53,6 +55,16 @@ public class DetailsActivity extends AppCompatActivity {
         setMoviePoster();
 
         setVoteAverage();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Toast.makeText(getApplicationContext(),"Back button clicked", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
     }
 
     private void setVoteAverage() {

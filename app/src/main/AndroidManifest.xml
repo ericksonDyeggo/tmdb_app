@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:parentActivityName=".MainActivity_" android:name=".DetailsActivity_"></activity>
+        <activity android:name=".SettingsActivity_"></activity>
     </application>
 
 </manifest>
