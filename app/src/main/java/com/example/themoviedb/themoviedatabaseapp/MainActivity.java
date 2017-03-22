@@ -1,7 +1,10 @@
 package com.example.themoviedb.themoviedatabaseapp;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.GridView;
 
@@ -43,10 +46,42 @@ public class MainActivity extends AppCompatActivity {
     @Bean
     ImageAdapter adapter;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        checkConnectivity();
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+
+        checkConnectivity();
+    }
+    private void checkConnectivity() {
+        if (!Utility.isConnected(this))
+            showInternetAlert();
+
+        String nPrefUser = Utility.getPreferredOrder(this);
+
+        if (!nPrefUser.equals(prefUser)) {
+            page = 1;
+            adapter.clear();
+            init();
+        }
+
+        setTitle(
+                prefUser.equals(getString(R.string.pref_order_by_popularity_key)) ?
+                        getString(R.string.popularity_title) :
+                        getString(R.string.vote_average_title)
+        );
+    }
+
     @AfterViews
         // Initialize our components
     void init() {
-        prefUser = Utility.getPreferedOrder(this);
+        prefUser = Utility.getPreferredOrder(this);
 
         progressDialog = new ProgressDialog(this);
 
@@ -103,8 +138,39 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.dismiss();
     }
 
+    @UiThread
+    void showInternetAlert() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(getString(R.string.connection_error_title))
+                .setMessage(getString(R.string.connection_error_message))
+                .setPositiveButton(getString(R.string.yes),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+                                startActivity(intent);
+                            }
+
+                        })
+                .setNegativeButton(getString(R.string.exit), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setCancelable(false)
+                .show();
+    }
+
     @Background
     void loadMovies() {
+        if (!Utility.isConnected(this)) {
+            stopProgress();
+            showInternetAlert();
+            return;
+        }
+
         Call<UpComingMovies> call;
 
         if (prefUser.equals(getString(R.string.pref_order_by_popularity_key))) {

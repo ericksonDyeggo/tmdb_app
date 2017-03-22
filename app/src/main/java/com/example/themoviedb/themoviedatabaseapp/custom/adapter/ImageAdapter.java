@@ -87,4 +87,8 @@ public class ImageAdapter extends BaseAdapter {
         else
             this.movies.addAll(movies);
     }
+
+    public void clear () {
+        movies.clear();
+    }
 }

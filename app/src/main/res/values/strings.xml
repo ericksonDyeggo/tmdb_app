@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">The Movie Database App</string>
+    <!--Titles-->
+    <string name="popularity_title">TMDB: Popularidade</string>
+    <string name="vote_average_title">TMDB: Avaliação do usuário</string>
     <!--Configurations-->
     <string name="pref_ordering_movies_key" translatable="false">ordering_movies</string>
     <string name="pref_ordering_movies">Ordenação dos filmes</string>
@@ -13,4 +16,11 @@
     <string name="movie_synopsis">Sinopse do Filme:</string>
     <string name="user_review">Avaliação do Usuário:</string>
     <string name="no_overview">Sinopse não encontrada</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="ok">Ok</string>
+    <string name="exit">Sair</string>
+    <!--Error Messages-->
+    <string name="connection_error_title">Por favor, verifique a conexão.</string>
+    <string name="connection_error_message">Deseja verficar as configurações de internet?</string>
 </resources>
